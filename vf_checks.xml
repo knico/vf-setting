@@ -1,8 +1,5 @@
 <?xml version="1.0"?>
-<!DOCTYPE module PUBLIC
-          "-//Puppy Crawl//DTD Check Configuration 1.3//EN"
-          "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
-
+<!DOCTYPE module PUBLIC "-//Puppy Crawl//DTD Check Configuration 1.3//EN" "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
     <!--
@@ -17,12 +14,12 @@
 
     <!-- Checks that property files contain the same keys.         -->
     <!-- See http://checkstyle.sf.net/config_misc.html#Translation -->
-    <module name="Translation"/>
+    <!-- module name="Translation"/ -->
 
     <!-- Checks for Size Violations.                    -->
     <!-- See http://checkstyle.sf.net/config_sizes.html -->
     <module name="FileLength">
-        <property name="max" value="1000" />
+        <property name="max" value="2500"/>
     </module>
 
     <!-- Miscellaneous other checks.                   -->
@@ -49,27 +46,37 @@
         <module name="ParameterName"/>
         <module name="StaticVariableName"/>
         <module name="TypeName"/>
+        <!--  Checks for overly complicated boolean return statements. For example the following code
+           检查是否存在过度复杂的boolean返回值
+           if (valid())
+              return false;
+           else
+              return true;
+           could be written as
+              return !valid();
+           The Idea for this Check has been shamelessly stolen from the equivalent PMD rule. -->
+        <module name="SimplifyBooleanReturn"/>
 
         <!-- Checks for imports                              -->
         <!-- See http://checkstyle.sf.net/config_import.html -->
-        <module name="IllegalImport"/> <!-- defaults to sun.* packages -->
+        <module name="IllegalImport"/>
+        <!-- defaults to sun.* packages -->
 
         <!-- Checks for Size Violations.                    -->
         <!-- See http://checkstyle.sf.net/config_sizes.html -->
         <module name="LineLength">
-             <property name="max" value="150" />
+            <property name="max" value="200"/>
         </module>
         <module name="MethodLength">
-            <property name="tokens" value="METHOD_DEF" />
-            <property name="max" value="200" />
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="max" value="300"/>
         </module>
         <module name="ParameterNumber">
-            <property name="max" value="5" />
+            <property name="max" value="5"/>
         </module>
         <module name="MethodCount">
             <property name="maxTotal" value="30"/>
         </module>
-
 
         <!-- Modifier Checks                                    -->
         <!-- See http://checkstyle.sf.net/config_modifiers.html -->
@@ -84,7 +91,7 @@
         <!-- module name="IllegalInstantiation"/ -->
         <module name="MagicNumber"/>
         <module name="MissingSwitchDefault"/>
-        <module name="MultipleStringLiterals" />
+        <module name="MultipleStringLiterals"/>
         <module name="StringLiteralEquality"/>
 
         <!-- Checks for class design                         -->
@@ -104,12 +111,44 @@
         <module name="CyclomaticComplexity">
             <property name="max" value="10"/>
         </module>
-        <module name="ClassFanOutComplexity" >
-            <property name="max" value="70" />
+        <module name="ClassFanOutComplexity">
+            <property name="max" value="70"/>
         </module>
-        <module name="ClassDataAbstractionCoupling" />
-        <module name="NPathComplexity" />
+        <module name="ClassDataAbstractionCoupling"/>
+        <module name="NPathComplexity"/>
 
+        <!-- 检查类和接口的javadoc 默认不检查author 和version tags
+                authorFormat: 检查author标签的格式
+                versionFormat: 检查version标签的格式
+                scope: 可以检查的类的范围，例如：public只能检查public修饰的类，private可以检查所有的类
+                excludeScope: 不能检查的类的范围，例如：public，public的类将不被检查，但访问权限小于public的类仍然会检查，其他的权限以此类推
+                tokens: 该属性适用的类型，例如：CLASS_DEF,INTERFACE_DEF -->
+        <module name="JavadocType">
+            <property name="authorFormat" value="\S"/>
+            <property name="scope" value="protected"/>
+            <property name="tokens" value="CLASS_DEF,INTERFACE_DEF"/>
+        </module>
+        <!-- 检查方法的javadoc的注释
+                scope: 可以检查的方法的范围，例如：public只能检查public修饰的方法，private可以检查所有的方法
+                allowMissingParamTags: 是否忽略对参数注释的检查
+                allowMissingThrowsTags: 是否忽略对throws注释的检查
+                allowMissingReturnTag: 是否忽略对return注释的检查 -->
+        <module name="JavadocMethod">
+            <property name="scope" value="protected"/>
+            <property name="allowMissingParamTags" value="true"/>
+            <property name="allowMissingThrowsTags" value="true"/>
+            <property name="allowMissingReturnTag" value="true"/>
+            <property name="tokens" value="METHOD_DEF"/>
+            <property name="allowUndeclaredRTE" value="true"/>
+            <property name="allowThrowsTagsForSubclasses" value="true"/>
+            <!--允许get set 方法没有注释-->
+            <property name="allowMissingPropertyJavadoc" value="true"/>
+        </module>
+        <!-- 检查类变量的注释
+                scope: 检查变量的范围，例如：public只能检查public修饰的变量，private可以检查所有的变量 -->
+        <module name="JavadocVariable">
+            <property name="scope" value="private"/>
+        </module>
     </module>
 
 </module>
