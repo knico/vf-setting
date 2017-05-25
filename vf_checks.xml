@@ -133,22 +133,22 @@
                 allowMissingParamTags: 是否忽略对参数注释的检查
                 allowMissingThrowsTags: 是否忽略对throws注释的检查
                 allowMissingReturnTag: 是否忽略对return注释的检查 -->
-        <module name="JavadocMethod">
+        <!-- module name="JavadocMethod">
             <property name="scope" value="protected"/>
             <property name="allowMissingParamTags" value="true"/>
             <property name="allowMissingThrowsTags" value="true"/>
             <property name="allowMissingReturnTag" value="true"/>
             <property name="tokens" value="METHOD_DEF"/>
             <property name="allowUndeclaredRTE" value="true"/>
-            <property name="allowThrowsTagsForSubclasses" value="true"/>
+            <property name="allowThrowsTagsForSubclasses" value="true"/ -->
             <!--允许get set 方法没有注释-->
-            <property name="allowMissingPropertyJavadoc" value="true"/>
-        </module>
+            <!-- property name="allowMissingPropertyJavadoc" value="true"/>
+        </module -->
         <!-- 检查类变量的注释
                 scope: 检查变量的范围，例如：public只能检查public修饰的变量，private可以检查所有的变量 -->
-        <module name="JavadocVariable">
+        <!-- module name="JavadocVariable">
             <property name="scope" value="private"/>
-        </module>
+        </module -->
     </module>
 
 </module>
