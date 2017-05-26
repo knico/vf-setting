@@ -55,7 +55,7 @@
            could be written as
               return !valid();
            The Idea for this Check has been shamelessly stolen from the equivalent PMD rule. -->
-        <module name="SimplifyBooleanReturn"/>
+        <!-- module name="SimplifyBooleanReturn"/ -->
 
         <!-- Checks for imports                              -->
         <!-- See http://checkstyle.sf.net/config_import.html -->
